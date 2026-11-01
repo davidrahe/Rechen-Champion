@@ -25,7 +25,7 @@ h1{font-family:'Fredoka One',cursive;font-weight:400;font-size:2.5rem;line-heigh
 .opt b{font:400 .95rem 'Fredoka One',cursive}.opt small{font-size:.66rem;font-weight:700;color:var(--mu)}.opt i{font-style:normal;font-size:1.6rem}
 .opt.sel{border-color:var(--sky);background:var(--card);box-shadow:0 4px 0 var(--sky)}
 .tp{display:flex;align-items:center;gap:7px;text-align:left;flex-direction:row;padding:9px 10px;font-weight:800;font-size:.85rem}
-.tp i{font-size:1.2rem}.tp.sel{border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}
+.tp i{font-size:1.2rem}.tp.sel{border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}.tp:not(.sel){opacity:.5}.ck{margin-left:auto;flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--mu);color:#fff;font-size:.8rem;line-height:18px;text-align:center}.tp.sel .ck{background:var(--ok);border-color:var(--ok)}.tp.sel .ck::before{content:"✓"}
 .row{display:flex;gap:8px;align-items:center;justify-content:space-between}
 .mini{border:0;background:none;color:var(--skyd);font:800 .8rem 'Nunito',sans-serif;cursor:pointer;text-decoration:underline}
 .big{width:100%;border:0;border-radius:16px;padding:15px;font:400 1.35rem 'Fredoka One',cursive;color:#fff;background:linear-gradient(135deg,#29B6F6,#0277BD);box-shadow:0 6px 0 #01579B;cursor:pointer}
@@ -65,7 +65,7 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
  <div class="card"><label class="sl" for="nm">Wie heißt du?</label><input id="nm" maxlength="14" autocomplete="off" placeholder="Dein Name"></div>
  <div class="card"><span class="sl">Stufe</span><div class="g4" id="lv"></div></div>
  <div class="card"><span class="sl">Wie viele Aufgaben?</span><div class="g4" id="nn"></div></div>
- <div class="card"><div class="row"><span class="sl">Themen</span><span><button class="mini" onclick="allT(1)">alle</button> · <button class="mini" onclick="allT(0)">keins</button></span></div><div class="g2" id="tp"></div></div>
+ <div class="card"><div class="row"><span class="sl">Themen (✓ = dabei)</span><span><button class="mini" onclick="allT(1)">alle</button> · <button class="mini" onclick="allT(0)">keins</button></span></div><div class="g2" id="tp"></div></div>
  <button class="big" onclick="go()">Los geht’s!</button>
 </div>
 
@@ -147,12 +147,12 @@ function init(){const l=$('#lv'),n=$('#nn');
  [...l.children].forEach((b,i)=>b.onclick=()=>pick(l,i,v=>cfg.d=v+1));
  NN.forEach((x,i)=>n.insertAdjacentHTML('beforeend',`<button class="opt${i==0?' sel':''}"><b>${x}</b></button>`));
  [...n.children].forEach((b,i)=>b.onclick=()=>pick(n,i,v=>cfg.n=NN[v]));
- TP.forEach(t=>$('#tp').insertAdjacentHTML('beforeend',`<button class="opt tp sel" data-k="${t[0]}"><i>${t[1]}</i>${t[2]}</button>`));
+ TP.forEach(t=>$('#tp').insertAdjacentHTML('beforeend',`<button class="opt tp sel" data-k="${t[0]}"><i>${t[1]}</i>${t[2]}<span class="ck"></span></button>`));
  [...$('#tp').children].forEach(b=>b.onclick=()=>{let k=b.dataset.k;if(cfg.tp.has(k)){if(cfg.tp.size>1){cfg.tp.delete(k);b.classList.remove('sel')}}else{cfg.tp.add(k);b.classList.add('sel')}})}
 function allT(on){cfg.tp=on?new Set(TP.map(t=>t[0])):new Set([TP[0][0]]);[...$('#tp').children].forEach(b=>b.classList.toggle('sel',cfg.tp.has(b.dataset.k)))}
 function show(id){document.querySelectorAll('.sc').forEach(s=>s.classList.toggle('on',s.id==id));scrollTo(0,0)}
 function go(){cfg.name=$('#nm').value.trim()||'Spieler';S={i:0,pts:0,st:0,best:0,first:0,last:null,ph:0};show('g');nq()}
-function nq(){if(S.i>=cfg.n)return fin();let ks=[...cfg.tp],k;do k=P(ks);while(k==S.last&&ks.length>1);S.last=k;S.it=G[k](cfg.d);S.tr=0;S.buf='';S.ph=0;draw()}
+function nq(){if(S.i>=cfg.n)return fin();let ks=[...cfg.tp],k;do k=P(ks);while(k==S.last&&ks.length>1);S.last=k;S.it=G[k](cfg.d);S.it.k=k;S.tr=0;S.buf='';S.ph=0;draw()}
 function upd(){$('#pts').textContent=S.pts+' ⭐';$('#stk').textContent=S.st>=2?'🔥 '+S.st+' in Folge':''}
 function draw(){const it=S.it;$('#cnt').textContent=`Aufgabe ${S.i+1} von ${cfg.n}`;$('#bar').style.width=S.i/cfg.n*100+'%';upd();
  $('#qa').innerHTML=`<div class="tt">${it.sm?'':it.t}</div><div class="qq${it.sm?' s':''}">${it.sm?'<div class="tt">'+it.t+'</div>':''}${it.q}</div>`;$('#fb').innerHTML='';
