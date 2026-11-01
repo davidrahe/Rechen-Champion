@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rechen-Champions – 3. Klasse</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#29B6F6;--skyd:#0277BD;--sun:#FFD54F;--ok:#2e9e4f;--bad:#e5484d;--pur:#8E24AA;--bg:#EEF7FF;--card:#fff;--tx:#1A2D3D;--mu:#5f7d93;--ln:#cfe6f7;--soft:#f1f8ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1c27;--card:#182a38;--tx:#e8f3fb;--mu:#93b3c8;--ln:#2a4458;--soft:#1f3546}}
+:root[data-theme="dark"]{--bg:#0f1c27;--card:#182a38;--tx:#e8f3fb;--mu:#93b3c8;--ln:#2a4458;--soft:#1f3546}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;justify-content:center}
+.app{width:100%;max-width:560px;padding:14px 13px 50px}
+.sc{display:none;flex-direction:column;gap:14px}.sc.on{display:flex;animation:fs .3s ease}
+@keyframes fs{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h1{font-family:'Fredoka One',cursive;font-weight:400;font-size:2.5rem;line-height:1.05;color:var(--sky);text-align:center;text-shadow:3px 3px 0 var(--skyd)}
+.sub{text-align:center;color:var(--mu);font-weight:700;margin-top:-6px}
+.card{background:var(--card);border-radius:20px;padding:16px;box-shadow:0 8px 28px rgba(41,182,246,.16)}
+.sl{display:block;font-weight:800;color:var(--mu);font-size:.85rem;margin-bottom:8px}
+#nm{width:100%;border:2px solid var(--ln);border-radius:12px;padding:10px 12px;font:800 1.05rem 'Nunito',sans-serif;background:var(--card);color:var(--tx)}
+#nm:focus{outline:3px solid var(--sky);border-color:var(--sky)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.opt{border:3px solid transparent;background:var(--soft);border-radius:14px;padding:10px 4px;cursor:pointer;color:var(--tx);font:inherit;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
+.opt b{font:400 .95rem 'Fredoka One',cursive}.opt small{font-size:.66rem;font-weight:700;color:var(--mu)}.opt i{font-style:normal;font-size:1.6rem}
+.opt.sel{border-color:var(--sky);background:var(--card);box-shadow:0 4px 0 var(--sky)}
+.tp{display:flex;align-items:center;gap:7px;text-align:left;flex-direction:row;padding:9px 10px;font-weight:800;font-size:.85rem}
+.tp i{font-size:1.2rem}.tp.sel{border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.mini{border:0;background:none;color:var(--skyd);font:800 .8rem 'Nunito',sans-serif;cursor:pointer;text-decoration:underline}
+.big{width:100%;border:0;border-radius:16px;padding:15px;font:400 1.35rem 'Fredoka One',cursive;color:#fff;background:linear-gradient(135deg,#29B6F6,#0277BD);box-shadow:0 6px 0 #01579B;cursor:pointer}
+.big:active{transform:translateY(3px);box-shadow:0 3px 0 #01579B}.big.alt{background:linear-gradient(135deg,#AB47BC,#6A1B9A);box-shadow:0 6px 0 #4A148C}
+button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.hd{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:.9rem;color:var(--mu)}
+.pts{font:400 1.2rem 'Fredoka One',cursive;color:var(--sky)}
+.pb{height:10px;background:var(--ln);border-radius:9px;overflow:hidden}#bar{height:100%;width:0;background:linear-gradient(90deg,#66BB6A,#29B6F6);transition:width .4s}
+.tt{font-weight:800;color:var(--mu);font-size:.95rem;margin-bottom:10px;text-align:center}
+.qq{font:400 2rem 'Fredoka One',cursive;text-align:center;line-height:1.35;overflow-wrap:anywhere}
+.qq.s{font:800 1.12rem 'Nunito',sans-serif;line-height:1.5}
+.qm{display:inline-block;min-width:2.2rem;border-bottom:4px solid var(--sky);color:var(--sky)}
+.cd{display:inline-block;width:46px;height:60px;line-height:60px;margin:3px;border:3px solid var(--sky);border-radius:10px;background:var(--soft)}
+.mw{display:flex;flex-direction:column;gap:5px;align-items:center}.mr{display:flex;gap:5px}
+.stn{min-width:72px;padding:9px 6px;border-radius:10px;background:#d9d2c5;color:#2c2a26;font:400 1.3rem 'Fredoka One',cursive}
+.stn.q{background:var(--sun);color:#3b2f00;box-shadow:0 0 0 3px var(--sun),0 0 0 6px rgba(255,213,79,.4)}
+.dsp{height:64px;margin:14px auto 10px;max-width:260px;border:3px solid var(--sky);border-radius:14px;background:var(--card);font:400 2.2rem/58px 'Fredoka One',cursive;text-align:center}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:300px;margin:0 auto}
+.kb,.mb{border:0;border-radius:14px;padding:13px 0;font:400 1.5rem 'Fredoka One',cursive;background:var(--soft);color:var(--tx);box-shadow:0 4px 0 var(--ln);cursor:pointer}
+.kb:active,.mb:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ln)}.kb.go{background:var(--ok);color:#fff;box-shadow:0 4px 0 #1b6e36}
+.mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.mb{font-size:1.5rem;padding:16px 4px}.mb:disabled{opacity:.35}
+.mc.t3{grid-template-columns:repeat(3,1fr)}
+.msg{margin-top:14px;padding:12px;border-radius:14px;font-weight:900;text-align:center}
+.msg.ok{background:#e4f6e8;color:#1b6e36}.msg.bad{background:#fdeaea;color:#a02226}.msg.hm{background:#fff4d6;color:#7a5a00}
+@media(prefers-color-scheme:dark){.msg.ok{background:#1d4430;color:#a9edc0}.msg.bad{background:#4a2326;color:#ffc4c6}.msg.hm{background:#4a3d14;color:#ffe8a3}}
+.ex{margin-top:8px;padding:10px 12px;border-radius:12px;background:var(--soft);font-weight:700;font-size:.92rem;line-height:1.45}
+.nx{margin-top:12px}.shake{animation:sk .35s}@keyframes sk{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.rs{text-align:center}.rs .md{font-size:4rem}.rs .nm{font:400 1.5rem 'Fredoka One',cursive}.rs .big-n{font:400 4rem 'Fredoka One',cursive;color:var(--sky);line-height:1}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.st div{background:var(--soft);border-radius:12px;padding:9px 4px;font-weight:800;font-size:.75rem;color:var(--mu)}.st b{display:block;font:400 1.4rem 'Fredoka One',cursive;color:var(--tx)}
+.bt{border:3px dashed var(--pur);border-radius:16px;padding:12px;font-weight:800;line-height:1.5}
+.cp{position:fixed;top:-30px;font-size:1.6rem;pointer-events:none;z-index:9;animation:fl linear forwards}@keyframes fl{to{transform:translateY(110vh) rotate(540deg)}}
+@media(prefers-reduced-motion:reduce){.sc.on,.cp,.shake{animation:none}}
+</style></head><body><div class="app">
+
+<div class="sc on" id="h">
+ <h1>Rechen-Champions</h1><p class="sub">Klasse 3 · Zahlen bis 1000 – sammle Punkte für das Battle!</p>
+ <div class="card"><label class="sl" for="nm">Wie heißt du?</label><input id="nm" maxlength="14" autocomplete="off" placeholder="Dein Name"></div>
+ <div class="card"><span class="sl">Stufe</span><div class="g4" id="lv"></div></div>
+ <div class="card"><span class="sl">Wie viele Aufgaben?</span><div class="g4" id="nn"></div></div>
+ <div class="card"><div class="row"><span class="sl">Themen</span><span><button class="mini" onclick="allT(1)">alle</button> · <button class="mini" onclick="allT(0)">keins</button></span></div><div class="g2" id="tp"></div></div>
+ <button class="big" onclick="go()">Los geht’s!</button>
+</div>
+
+<div class="sc" id="g">
+ <div class="hd"><span id="cnt"></span><span id="stk"></span><span class="pts" id="pts">0 ⭐</span></div>
+ <div class="pb"><div id="bar"></div></div>
+ <div class="card"><div id="qa"></div><div id="in"></div><div id="fb"></div></div>
+</div>
+
+<div class="sc" id="r"><div class="card rs" id="rs"></div></div>
+</div>
+<script>
+const $=s=>document.querySelector(s),R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,P=a=>a[R(0,a.length-1)],SH=a=>[...a].sort(()=>Math.random()-.5),H=n=>n/100|0;
+const perms=a=>a.length<2?[a]:a.flatMap((x,i)=>perms([...a.slice(0,i),...a.slice(i+1)]).map(p=>[x,...p]));
+const EW=['','ein','zwei','drei','vier','fünf','sechs','sieben','acht','neun','zehn','elf','zwölf','dreizehn','vierzehn','fünfzehn','sechzehn','siebzehn','achtzehn','neunzehn'],ZW=['','','zwanzig','dreißig','vierzig','fünfzig','sechzig','siebzig','achtzig','neunzig'];
+const wd=n=>{let h=H(n),r=n%100,s=h?EW[h]+'hundert':'';if(r)s+=r<20?(r==1?'eins':EW[r]):(r%10?EW[r%10]+'und':'')+ZW[r/10|0];return s};
+const steps=(a,b,p)=>{let r=a,o=[];[H(b)*100,(b%100/10|0)*10,b%10].filter(x=>x).forEach(x=>{let n=p?r+x:r-x;o.push(`${r} ${p?'+':'−'} ${x} = ${n}`);r=n});return o.join(', ')};
+const mh=(rows,hi)=>{let k=0;return '<div class="mw">'+rows.map(r=>'<div class="mr">'+r.map(v=>{let i=k++;return `<span class="stn${i==hi?' q':''}">${i==hi?'?':v}</span>`}).join('')+'</div>').join('')+'</div>'};
+const NM=['Mia','Ben','Lea','Paul','Emma','Noah','Jonas','Lina'],TH=['Sticker','Murmeln','Karten','Bälle'];
+
+const G={
+pm(d){let a,b,p=Math.random()<.5;
+ if(d==1){a=R(2,8)*100;if(p)b=R(1,(1000-a)/100)*100;else b=R(1,a/100-1)*100}
+ else if(d==2){a=R(20,90)*10;if(p)b=R(1,Math.min(99,(1000-a)/10))*10;else b=R(1,Math.min(99,a/10-1))*10}
+ else if(d==3){if(p){a=R(101,899);b=R(11,99)}else{a=R(200,999);b=R(11,99)}}
+ else{if(p){a=R(101,600);b=R(101,Math.min(899,1000-a))}else{a=R(300,999);b=R(101,a-20)}}
+ return{t:'Rechne aus.',q:`${a} ${p?'+':'−'} ${b} = <span class="qm"></span>`,a:p?a+b:a-b,x:'Rechne in Schritten: '+steps(a,b,p)}},
+st(d){let v=R(0,d>1?3:2);
+ if(v==0){let h,z,e,o=d>1&&Math.random()<.75;do{h=R(1,9);z=R(0,9);e=R(0,9);if(o){if(d==2)e=R(10,19);else if(d==3)z=R(10,19);else{z=R(10,19);e=R(10,19)}}}while(h*100+z*10+e>1000);
+  return{t:'Welche Zahl ist es?',q:`${h}H + ${z}Z + ${e}E`,a:h*100+z*10+e,x:`${h*100} + ${z*10} + ${e} = ${h*100+z*10+e}. 10 Zehner sind 1 Hunderter, 10 Einer sind 1 Zehner.`}}
+ if(v==1){let n=R(101,999),h=H(n),z=n%100/10|0,e=n%10;return{t:'Welche Ziffer steht an der '+(['Hunderter','Zehner','Einer'][v=R(0,2)])+'stelle?',q:String(n),a:[h,z,e][v],x:`In ${n} stehen ${h} Hunderter, ${z} Zehner und ${e} Einer.`}}
+ if(v==2){let h=R(1,9),z=R(1,9),e=R(1,9),n=h*100+z*10+e,pa=[h*100,z*10,e],i=R(0,2);return{t:'Ergänze die Zerlegung.',q:pa.map((x,j)=>j==i?'<span class="qm"></span>':x).join(' + ')+' = '+n,a:pa[i],x:`${n} = ${pa.join(' + ')}`}}
+ let n=R(101,999),s=new Set([n]),h=H(n),z=n%100/10|0,e=n%10;[h*100+e*10+z,z*100+h*10+e,n+10,n-10,n+100,n-100,e*100+z*10+h].forEach(x=>{if(x>99&&x<1000&&s.size<4&&Math.random()<.8)s.add(x)});while(s.size<4)s.add(R(101,999));
+ return{t:'Welche Zahl gehört zum Zahlwort?',q:wd(n),sm:1,mc:SH([...s]).map(String),a:String(n),x:`${wd(n)} = ${h} Hunderter, ${z} Zehner, ${e} Einer = ${n}`}},
+mauer(d){let v=()=>d%2?R(1,d==1?40:24)*10:R(10,d==2?500:240),rows;
+ if(d<3){let b=[v(),v()];rows=[[b[0]+b[1]],b]}else{let b=[v(),v(),v()],m=[b[0]+b[1],b[1]+b[2]];rows=[[m[0]+m[1]],m,b]}
+ let f=rows.flat(),hi=R(0,f.length-1);return{t:'Zahlenmauer: Jeder Stein ist die Summe der zwei Steine darunter. Welche Zahl fehlt?',q:mh(rows,hi),a:f[hi],x:'Oben steht immer die Summe der beiden Steine darunter. Rechne vorwärts (+) oder rückwärts (−).'}},
+erg(d){let a,s,p=Math.random()<.5;
+ if(d==1){a=R(1,8)*100;s=R(1,(1000-a)/100)*100}else if(d==2){a=R(10,80)*10;s=R(1,Math.min(50,(1000-a)/10))*10}
+ else if(d==3){a=R(100,800);s=R(21,Math.min(200,1000-a))}else{a=R(100,700);s=R(101,Math.min(299,1000-a))}
+ let c=a+s;return{t:'Welche Zahl fehlt?',q:p?`${a} + <span class="qm"></span> = ${c}`:`${c} − <span class="qm"></span> = ${a}`,a:s,x:`Nimm die Umkehraufgabe: ${c} − ${a} = ${s}`}},
+mal(d){let a,b,f;
+ if(d==1){a=P([2,5,10]);b=R(1,10);f=P([0,1])}else if(d==2){a=R(2,10);b=R(2,10);f=0}
+ else if(d==3){a=R(2,10);b=R(2,10);f=P([1,2])}else{a=R(2,9);b=R(2,9)*10;f=P([0,1,3])}
+ let p=a*b,q=['${a} · ${b} = ?',`${p} : ${a} = ?`,`? · ${a} = ${p}`,`${a} · ? = ${p}`][f];
+ q=f==0?`${a} · ${b} = ?`:q;let an=f==0?p:f==1?b:f==2?b:b;
+ return{t:'Einmaleins und Umkehraufgaben.',q:q.replace('?','<span class="qm"></span>'),a:an,x:b>10?`${a} · ${b/10} = ${p/10}, dann mal 10: ${p}`:`${a} · ${b} = ${p}, und ${p} : ${a} = ${b}`}},
+dh(d){let dbl=Math.random()<.5,n;
+ if(dbl){n=R(2,[25,50,300,499][d-1]);return{t:'Verdoppeln.',q:`Das Doppelte von ${n}`,a:n*2,x:`${n} + ${n} = ${n*2}`}}
+ n=2*R(1,[25,50,250,500][d-1]);return{t:'Halbieren.',q:`Die Hälfte von ${n}`,a:n/2,x:`${n/2} + ${n/2} = ${n}, also ist ${n/2} die Hälfte.`}},
+fo(d){if(d>1&&Math.random()<.4){let s=R(101,899),c=(s-1)%10,l=Math.random()<.5;if(l&&c<1)l=0;if(!l&&c>8)l=1;let n=R(1,Math.min(l?c:9-c,d==2?4:6)),u=Math.random()<.5,m=R(1,d==2?3:5);
+  return{t:'Hundertertafel',q:`Start bei <b>${s}</b>: ${n} Schritte nach ${l?'links':'rechts'}, ${m} Schritte nach ${u?'unten':'oben'}. Wo landest du?`,sm:1,a:s+(l?-n:n)+(u?10*m:-10*m),x:'Ein Schritt nach links/rechts ändert die Zahl um 1, ein Schritt nach oben/unten um 10.'}}
+ let s=P([[10,100,5],[2,5,20,50],[15,25,30,40,60],[45,75,110,120,125,150]][d-1]),up=d==1||Math.random()<.5,a=up?R(0,1000-4*s):R(4*s,1000),q=[0,1,2,3,4].map(i=>up?a+i*s:a-i*s),hi=d<3?4:R(1,4);
+ return{t:'Wie geht die Zahlenfolge weiter?',q:q.map((v,i)=>i==hi?'<span class="qm"></span>':v).join(' , '),a:q[hi],x:`Die Regel: immer ${up?'+':'−'} ${s}.`}},
+vgl(d){let l,r,lt,rt,LV,RV;
+ if(d==1){l=R(100,999);do r=R(100,999);while(H(l)==H(r));lt=l;rt=r;LV=l;RV=r}
+ else if(d==2){l=R(100,999);r=H(l)*100+R(0,99);if(Math.random()<.5)[l,r]=[r,l];lt=l;rt=r;LV=l;RV=r}
+ else if(d==3){let a=R(100,500),b=R(10,300);RV=a+b+P([-20,-10,0,0,10,20]);LV=a+b;lt=`${a} + ${b}`;rt=RV}
+ else{let a=R(100,400),b=R(100,300),e=R(50,250);LV=a+b;RV=LV+P([-10,-1,0,0,1,10]);lt=`${a} + ${b}`;rt=`${RV+e} − ${e}`}
+ return{t:'Setze <, > oder = ein.',q:`${lt} <b class="qm">&nbsp;?&nbsp;</b> ${rt}`,mc:['<','=','>'],a:LV<RV?'<':LV>RV?'>':'=',x:`${lt} = ${LV} und ${rt} = ${RV}.`}},
+sach(d){let n=P(NM),m=P(NM.filter(x=>x!=n)),t=P(TH),k=d<3?R(0,1):R(2,3),a,b,o,j;if(d==4&&Math.random()<.5)k=4;
+ if(k<2){let big=d>=2;a=big?R(120,600):R(2,9)*10;b=big?R(21,Math.min(300,a-1)):R(1,a/10-1)*10;
+  if(k==0)return{t:'Sachaufgabe',q:`${n} hat ${a} ${t}. ${m} hat ${b} ${t}. Wie viele sind es zusammen?`,sm:1,a:a+b,x:`${a} + ${b} = ${a+b}`};
+  return{t:'Sachaufgabe',q:`${n} hat ${a} ${t} und gibt ${b} davon an ${m}. Wie viele hat ${n} noch?`,sm:1,a:a-b,x:`${a} − ${b} = ${a-b}`}}
+ if(k==2){a=R(3,10);j=R(2,d==3?10:9)*(d==4?10:1);return{t:'Sachaufgabe',q:`In jeder Kiste sind ${a} ${t}. Es gibt ${j} Kisten. Wie viele ${t} sind das insgesamt?`,sm:1,a:a*j,x:`${a} · ${j} = ${a*j}`}}
+ if(k==3){a=R(2,9);j=R(2,10)*(d==4?10:1);return{t:'Sachaufgabe',q:`${a*j} ${t} werden gerecht auf ${a} Kinder verteilt. Wie viele bekommt jedes Kind?`,sm:1,a:j,x:`${a*j} : ${a} = ${j}`}}
+ a=R(100,500);b=R(50,300);o=R(20,Math.min(150,a+b-1));return{t:'Sachaufgabe',q:`${n} hat ${a} ${t}. Sie bekommt ${b} dazu und verschenkt dann ${o}. Wie viele hat sie jetzt?`,sm:1,a:a+b-o,x:`${a} + ${b} = ${a+b}, dann ${a+b} − ${o} = ${a+b-o}`}},
+rae(d){let ds=SH([1,2,3,4,5,6,7,8,9]).slice(0,d==4?4:3),cards='<div>'+ds.map(x=>`<span class="cd">${x}</span>`).join('')+'</div>',asc=[...ds].sort((a,b)=>a-b),big=+[...asc].reverse().join(''),sm=+asc.join('');
+ if(d==4){let mx=Math.random()<.5,best=mx?0:999;perms(ds).forEach(p=>{let a=p[0]*10+p[1],b=p[2]*10+p[3];if(a>=b){let df=a-b;best=mx?Math.max(best,df):Math.min(best,df)}});
+  return{t:`Bilde mit allen Karten zwei zweistellige Zahlen. Der Unterschied soll möglichst ${mx?'groß':'klein'} sein. Wie groß ist er?`,q:cards,a:best,x:mx?'Die größte Zahl nach vorn, die kleinste hinten: große Zehnerziffer minus kleine Zehnerziffer.':'Nimm für beide Zahlen ähnliche Zehnerziffern und mach die Einer so verschieden wie möglich.'}}
+ let v=d==1?0:d==2?1:R(0,2);return[{t:'Wie heißt die größte dreistellige Zahl mit diesen Karten?',q:cards,a:big,x:'Die größte Ziffer nach vorn (Hunderter), dann die nächstgrößere.'},{t:'Wie heißt die kleinste dreistellige Zahl mit diesen Karten?',q:cards,a:sm,x:'Die kleinste Ziffer nach vorn (Hunderter), dann die nächstkleinere.'},{t:'Wie groß ist der Unterschied zwischen der größten und der kleinsten Zahl, die du legen kannst?',q:cards,a:big-sm,x:`Größte: ${big}, kleinste: ${sm}. ${big} − ${sm} = ${big-sm}`}][v]}
+};
+const TP=[['pm','➕','Plus & Minus'],['st','🔢','Stellenwerte'],['mauer','🧱','Zahlenmauern'],['erg','🧩','Ergänzen'],['mal','✖️','Einmaleins'],['dh','🪞','Doppelt & halb'],['fo','🔁','Folgen & Tafel'],['vgl','⚖️','Vergleichen'],['sach','📖','Sachaufgaben'],['rae','🃏','Ziffernkarten']];
+const LV=[['🐢','Leicht','Hunderter, Zehner',10],['🦊','Mittel','Zehner, Einer',20],['🦁','Schwer','Große Zahlen',30],['🐉','Profi','Knifflig!',40]],NN=[10,15,20,30];
+let cfg={d:1,n:10,tp:new Set(TP.map(t=>t[0]))},S={};
+function pick(el,i,f){[...el.children].forEach((c,j)=>c.classList.toggle('sel',j==i));f(i)}
+function init(){const l=$('#lv'),n=$('#nn');
+ LV.forEach((x,i)=>l.insertAdjacentHTML('beforeend',`<button class="opt${i==0?' sel':''}"><i>${x[0]}</i><b>${x[1]}</b><small>${x[3]} P.</small></button>`));
+ [...l.children].forEach((b,i)=>b.onclick=()=>pick(l,i,v=>cfg.d=v+1));
+ NN.forEach((x,i)=>n.insertAdjacentHTML('beforeend',`<button class="opt${i==0?' sel':''}"><b>${x}</b></button>`));
+ [...n.children].forEach((b,i)=>b.onclick=()=>pick(n,i,v=>cfg.n=NN[v]));
+ TP.forEach(t=>$('#tp').insertAdjacentHTML('beforeend',`<button class="opt tp sel" data-k="${t[0]}"><i>${t[1]}</i>${t[2]}</button>`));
+ [...$('#tp').children].forEach(b=>b.onclick=()=>{let k=b.dataset.k;if(cfg.tp.has(k)){if(cfg.tp.size>1){cfg.tp.delete(k);b.classList.remove('sel')}}else{cfg.tp.add(k);b.classList.add('sel')}})}
+function allT(on){cfg.tp=on?new Set(TP.map(t=>t[0])):new Set([TP[0][0]]);[...$('#tp').children].forEach(b=>b.classList.toggle('sel',cfg.tp.has(b.dataset.k)))}
+function show(id){document.querySelectorAll('.sc').forEach(s=>s.classList.toggle('on',s.id==id));scrollTo(0,0)}
+function go(){cfg.name=$('#nm').value.trim()||'Spieler';S={i:0,pts:0,st:0,best:0,first:0,last:null,ph:0};show('g');nq()}
+function nq(){if(S.i>=cfg.n)return fin();let ks=[...cfg.tp],k;do k=P(ks);while(k==S.last&&ks.length>1);S.last=k;S.it=G[k](cfg.d);S.tr=0;S.buf='';S.ph=0;draw()}
+function upd(){$('#pts').textContent=S.pts+' ⭐';$('#stk').textContent=S.st>=2?'🔥 '+S.st+' in Folge':''}
+function draw(){const it=S.it;$('#cnt').textContent=`Aufgabe ${S.i+1} von ${cfg.n}`;$('#bar').style.width=S.i/cfg.n*100+'%';upd();
+ $('#qa').innerHTML=`<div class="tt">${it.sm?'':it.t}</div><div class="qq${it.sm?' s':''}">${it.sm?'<div class="tt">'+it.t+'</div>':''}${it.q}</div>`;$('#fb').innerHTML='';
+ $('#in').innerHTML=it.mc?`<div class="mc${it.mc.length==3?' t3':''}">${it.mc.map(o=>`<button class="mb" onclick="ans('${o}',this)">${o}</button>`).join('')}</div>`:`<div class="dsp" id="dsp">&nbsp;</div><div class="kp">${[1,2,3,4,5,6,7,8,9,'⌫',0,'✓'].map(k=>`<button class="kb${k=='✓'?' go':''}" aria-label="${k=='⌫'?'Löschen':k=='✓'?'Prüfen':k}" onclick="key('${k}')">${k}</button>`).join('')}</div>`}
+function key(k){if(S.ph)return;if(k=='⌫')S.buf=S.buf.slice(0,-1);else if(k=='✓')return ans(S.buf);else if(S.buf.length<5)S.buf+=k;$('#dsp').innerHTML=S.buf||'&nbsp;'}
+function ans(v,el){if(S.ph||v===''||v==null)return;const it=S.it,ok=it.mc?v===it.a:Number(v)===it.a,b=LV[cfg.d-1][3];
+ if(ok){let p=b,bo=0;if(S.tr==0){S.st++;S.first++;S.best=Math.max(S.best,S.st);if(S.st>=3){bo=5*cfg.d;p+=bo}}else{p=b/2;S.st=0}
+  S.pts+=p;S.ph=1;upd();fin1(`<div class="msg ok">${P(['Richtig! 🎉','Super! ⭐','Genau! 💪','Stark! 🚀'])} +${p} Punkte${bo?' · 🔥 Serienbonus':''}</div>`);if(S.st>=3)pop()}
+ else{S.tr++;S.st=0;upd();if(S.tr==1){if(el)el.disabled=true;else{S.buf='';$('#dsp').innerHTML='&nbsp;'}
+   $('#fb').innerHTML='<div class="msg hm shake">Fast! Versuch es noch einmal – dann gibt es halbe Punkte.</div>'}
+  else{S.ph=1;fin1(`<div class="msg bad">Die richtige Antwort ist <b>${it.a}</b>.</div><div class="ex">💡 ${it.x}</div>`)}}}
+function fin1(h){document.querySelectorAll('.mb').forEach(x=>x.disabled=true);$('#fb').innerHTML=h+`<button class="big nx" onclick="nx()">${S.i+1>=cfg.n?'Ergebnis ansehen':'Weiter'}</button>`;$('.nx').focus()}
+function nx(){S.i++;nq()}
+function pop(){const e=document.createElement('span');e.className='cp';e.textContent='🔥';e.style.left=R(10,85)+'vw';e.style.animationDuration='1.6s';document.body.append(e);setTimeout(()=>e.remove(),1700)}
+function fin(){const b=LV[cfg.d-1][3],mx=cfg.n*b+Math.max(0,cfg.n-2)*5*cfg.d,pc=S.pts/mx,md=pc>=.85?['🏆','Champion!']:pc>=.65?['🥇','Super gerechnet!']:pc>=.45?['🥈','Starke Leistung!']:['🥉','Bleib dran!'];
+ const tx=`🏆 ${cfg.name}: ${S.pts} Punkte (${LV[cfg.d-1][1]}, ${cfg.n} Aufgaben)`;
+ $('#rs').innerHTML=`<div class="md">${md[0]}</div><div class="nm">${md[1]}</div><p class="sub" style="margin:4px 0 10px">${cfg.name}</p><div class="big-n">${S.pts}</div><div class="sub" style="margin:4px 0 0">Punkte von ${mx} möglichen</div>
+ <div class="st"><div><b>${S.first}/${cfg.n}</b>gleich richtig</div><div><b>${S.best}</b>längste Serie</div><div><b>${Math.round(pc*100)}%</b>vom Maximum</div></div>
+ <div class="bt">⚔️ Battle-Karte<br>${tx}<br><span style="font-weight:700;font-size:.82rem;color:var(--mu)">Fair vergleichen: gleiche Stufe, gleiche Aufgabenzahl.</span></div>
+ <div class="g2" style="margin-top:14px"><button class="big" onclick="go()">Nochmal</button><button class="big alt" onclick="newKid()">Nächstes Kind</button></div>
+ <button class="mini" style="margin-top:12px" onclick="cp(this,'${tx}')">Battle-Karte kopieren</button>`;
+ show('r');if(pc>=.45)for(let i=0;i<30;i++){const e=document.createElement('span');e.className='cp';e.textContent=P(['⭐','🎉','✨','🏅']);e.style.left=R(0,95)+'vw';e.style.animationDuration=R(20,45)/10+'s';e.style.animationDelay=R(0,10)/10+'s';document.body.append(e);setTimeout(()=>e.remove(),5200)}}
+function cp(b,t){try{navigator.clipboard.writeText(t).then(()=>b.textContent='Kopiert ✓')}catch(e){b.textContent='Kopieren nicht möglich'}}
+function newKid(){$('#nm').value='';show('h');$('#nm').focus()}
+document.addEventListener('keydown',e=>{if(!$('#g').classList.contains('on')||e.ctrlKey||e.metaKey)return;if(S.ph){if(e.key=='Enter'&&document.activeElement.className.indexOf('nx')<0)nx();return}
+ if(S.it&&!S.it.mc){if(/^\d$/.test(e.key))key(e.key);else if(e.key=='Backspace')key('⌫');else if(e.key=='Enter')key('✓')}});
+init();
+</script></body></html>
